@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Herramienta para docentes: cursos, estudiantes, actividades y calificaciones." />
+  <title>Gestor de Notas | Panel docente</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-icon">✦</span><span>Gestor de Notas<small>Panel docente</small></span></div>
+      <div class="sidebar-note">Organiza tus clases y lleva el control de las calificaciones desde un solo lugar.</div>
+      <div class="sidebar-bottom">Ejercicio en clase · Versión local</div>
+    </aside>
+    <main class="content">
+      <header class="heading"><div><p class="eyebrow">GESTIÓN ACADÉMICA</p><h1>Panel del profesor</h1><p class="muted">Gestiona cursos, estudiantes, evaluaciones y resultados.</p></div><button id="exportar" class="button secondary" type="button">↓ Exportar notas CSV</button></header>
+      <section class="panel course-bar" aria-label="Selección de curso">
+        <div class="course-select"><label for="curso-actual">Curso activo</label><select id="curso-actual"></select></div>
+        <form id="form-curso" class="inline-form"><label for="nuevo-curso">Crear curso</label><div class="input-action"><input id="nuevo-curso" maxlength="60" placeholder="Ej. Matemáticas 10A" required /><button class="button primary" type="submit">Crear</button></div></form>
+      </section>
+      <section class="metrics" aria-label="Resumen del curso">
+        <article class="panel metric"><span>Estudiantes</span><strong id="total-estudiantes">0</strong><small>Matriculados en el curso</small></article>
+        <article class="panel metric"><span>Actividades</span><strong id="total-actividades">0</strong><small>Evaluaciones creadas</small></article>
+        <article class="panel metric"><span>Promedio general</span><strong id="promedio-grupo">—</strong><small>Notas registradas del curso</small></article>
+        <article class="panel metric"><span>Peso configurado</span><strong id="peso-total">0%</strong><small>Máximo permitido: 100%</small></article>
+      </section>
+      <div class="forms-grid">
+        <section class="panel"><h2>Agregar estudiante</h2><p class="muted">Registra los alumnos de este curso.</p><form id="form-estudiante"><label for="nombre-estudiante">Nombre completo</label><input id="nombre-estudiante" maxlength="90" placeholder="Ej. Ana Rodríguez" required /><label for="codigo-estudiante">Código o identificación</label><input id="codigo-estudiante" maxlength="30" placeholder="Ej. E001" required /><button class="button primary" type="submit">+ Agregar estudiante</button></form></section>
+        <section class="panel"><h2>Crear evaluación</h2><p class="muted">Define las actividades y sus porcentajes.</p><form id="form-actividad"><label for="nombre-actividad">Nombre de la actividad</label><input id="nombre-actividad" maxlength="70" placeholder="Ej. Parcial 1" required /><label for="peso-actividad">Porcentaje de la definitiva (%)</label><input id="peso-actividad" type="number" min="0.01" max="100" step="0.01" placeholder="Ej. 25" required /><button class="button primary" type="submit">+ Crear evaluación</button></form></section>
+      </div>
+      <section class="panel grades-section"><div class="section-title"><div><h2>Libro de calificaciones</h2><p class="muted">Haz clic en una casilla para registrar o editar una nota de 0 a 5. Una casilla vacía significa pendiente.</p></div><input id="buscar-estudiante" type="search" placeholder="Buscar estudiante..." aria-label="Buscar estudiante" /></div><div class="table-scroll"><table><thead id="encabezado-tabla"></thead><tbody id="cuerpo-tabla"></tbody></table></div><p class="help">El promedio se calcula con las actividades calificadas y sus pesos. La columna «Acumulado» muestra el aporte a la definitiva sobre 5,00; las notas pendientes no se toman como cero.</p></section>
+      <section class="panel activity-section"><div class="section-title"><div><h2>Actividades del curso</h2><p class="muted">Consulta los pesos y elimina actividades cuando sea necesario.</p></div></div><div id="lista-actividades" class="activity-list"></div></section>
+      <p class="status" id="mensaje" role="status" aria-live="polite"></p>
+      <footer>Los datos se guardan únicamente en este navegador (localStorage). Exporta un CSV para conservar una copia. No utilices información sensible real en esta versión de clase.</footer>
+    </main>
+  </div>
+</body>
+</html>
